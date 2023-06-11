@@ -1,0 +1,32 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/php/dockerfile
+    volumes:
+        - ./src:/var/www
+    working_dir: /var/www
+  mysql:
+    build:
+      context: .
+      dockerfile: ./docker/mysql/dockerfile
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    volumes:
+      - account-book-db:/var/lib/mysql
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/dockerfile
+    volumes:
+      - ./src:/var/www
+    working_dir: /etc/nginx
+    ports:
+      - 80:80
+    depends_on:
+      - app
+volumes:
+  account-book-db:
