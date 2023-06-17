@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ManualAccountController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +20,15 @@ Route::get('/', function () {
 
 Route::get('/home', function () {
     return view('home');
-})->middleware(['auth', 'verified'])->name('home');;
+})->middleware(['auth', 'verified'])->name('home');
+
+Route::prefix('manual-account')->middleware(['auth', 'verified'])->group(function() {
+    Route::get('/register', [ManualAccountController::class, 'create']);
+    Route::post('/register', [ManualAccountController::class, 'store']);
+    Route::get('/register/{id}', [ManualAccountController::class, 'edit']);
+    Route::put('/register/{id}', [ManualAccountController::class, 'store']);
+    Route::delete('/register/{id}', [ManualAccountController::class, 'destory']);
+
+});
 
 require __DIR__.'/auth.php';
