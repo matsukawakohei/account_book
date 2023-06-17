@@ -5,6 +5,7 @@ return [
     'amount'                  => '金額',
     'date'                    => '支出日時',
     'manual_account_register' => '支出登録',
+    'register_complete'       => '支出の登録が完了しました。',
     'errors'                  => [
         'name'    => [
             'required' => '支出名は必須入力です。',

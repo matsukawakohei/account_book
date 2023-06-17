@@ -14,13 +14,6 @@ class ManualAccountController extends Controller
 
     public function store(ManualAccountRequest $request)
     {
-        \Log::error('とりあえず来たよ');
-        // 現在認証しているユーザーを取得
-        \Log::error(auth()->user());
-
-        // 現在認証しているユーザーのIDを取得
-        \Log::error(auth()->id());
-
         ManualAccount::create([
             'user_id' => auth()->id(),
             'name'    => $request->name,
@@ -28,7 +21,7 @@ class ManualAccountController extends Controller
             'date'    => $request->account_date,
         ]);
 
-        return view('manual_account.register');
+        return redirect('/home')->with('flash_message', trans('account.register_complete'));
     }
 
     public function edit(int $id)
