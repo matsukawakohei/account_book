@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('accounts', function (Blueprint $table) {
+        Schema::create('mail_connections', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->string('name', 50);
-            $table->integer('amount');
-            $table->date('date');
+            $table->string('email');
+            $table->string('password');
+            $table->string('host');
+            $table->integer('port');
+            $table->string('subject');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('manual_accounts');
+        Schema::dropIfExists('mail_connections');
     }
 };
