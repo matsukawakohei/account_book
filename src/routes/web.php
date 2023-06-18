@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ManualAccountController;
+use App\Http\Controllers\MailConnectionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,7 +29,13 @@ Route::prefix('manual-account')->middleware(['auth', 'verified'])->group(functio
     Route::get('/register/{id}', [ManualAccountController::class, 'edit']);
     Route::put('/register/{id}', [ManualAccountController::class, 'store']);
     Route::delete('/register/{id}', [ManualAccountController::class, 'destory']);
+});
 
+Route::prefix('mail-connection')->middleware(['auth', 'verified'])->group(function() {
+    Route::get('/register', [MailConnectionController::class, 'create']);
+    Route::post('/register', [MailConnectionController::class, 'store']);
+    Route::get('/register/{id}', [MailConnectionController::class, 'edit']);
+    Route::put('/register/{id}', [MailConnectionController::class, 'update']);
 });
 
 require __DIR__.'/auth.php';
