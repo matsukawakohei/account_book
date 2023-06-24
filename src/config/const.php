@@ -2,7 +2,7 @@
 
 return [
   'mail_connection' => [
-    'host'             => 'imap.gmail.com',
+    'host'             => 'imap.yahoo.co.jp',
     'port'             => 993,
     'subject'          => 'カード利用のお知らせ(本人ご利用分)',
     'encrypt_tyep'     => 'AES-128-CBC',
