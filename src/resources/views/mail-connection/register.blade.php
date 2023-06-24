@@ -49,13 +49,30 @@
                     @enderror
                 </div>
 
+                {{-- MailBox field --}}
+                <div class="input-group mb-3">
+                    <input type="text" name="mail_box" class="form-control @error('mail_box') is-invalid @enderror"
+                        placeholder="{{ __('mail_connection.mail_box') }}">
+
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-folder"></span>
+                        </div>
+                    </div>
+
+                    @error('mail_box')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
                 {{-- Register button --}}
                 <div class="input-group mb-3">
                     <button type="submit" class="btn btn-block btn-flat btn-primary">
                         {{ __('mail_connection.register') }}
                     </button>
                 </div>
-
             </form>
         </div>
     </div>
