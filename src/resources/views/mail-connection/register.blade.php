@@ -67,6 +67,24 @@
                     @enderror
                 </div>
 
+                {{-- Subjct field --}}
+                <div class="input-group mb-3">
+                    <input type="text" name="subject" class="form-control @error('subject') is-invalid @enderror"
+                        placeholder="{{ __('mail_connection.subject') }}">
+
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-comment-dots"></span>
+                        </div>
+                    </div>
+
+                    @error('subject')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
                 {{-- Register button --}}
                 <div class="input-group mb-3">
                     <button type="submit" class="btn btn-block btn-flat btn-primary">
