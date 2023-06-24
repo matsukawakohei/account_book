@@ -12,8 +12,7 @@ class MailConnection extends Model
     protected $fillable = [
         'user_id',
         'email',
-        'password',
-        'ciphertext',
+        'cipher_password',
         'mail_box',
         'host',
         'port',
