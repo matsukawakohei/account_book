@@ -2,8 +2,11 @@ FROM php:8.2-fpm
 COPY ./docker/php/php.ini /usr/local/etc/php/
 
 RUN apt-get update \
-  && apt-get install -y zlib1g-dev curl vim libzip-dev \
+  && apt-get install -y zlib1g-dev curl vim libzip-dev libc-client-dev libkrb5-dev \
   && docker-php-ext-install zip pdo_mysql
+
+RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
+    docker-php-ext-install imap
 
 #Composer install
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
