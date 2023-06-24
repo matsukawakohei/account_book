@@ -14,50 +14,66 @@
                 @csrf
 
                 {{-- Email field --}}
-            <div class="input-group mb-3">
-                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                    value="{{ old('email') }}" placeholder="{{ __('mail_connection.email') }}" autofocus>
+                <div class="input-group mb-3">
+                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+                        value="{{ old('email') }}" placeholder="{{ __('mail_connection.email') }}" autofocus>
 
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-envelope"></span>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
                     </div>
+
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
-                @error('email')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
+                {{-- Password field --}}
+                <div class="input-group mb-3">
+                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
+                        placeholder="{{ __('mail_connection.password') }}">
 
-            {{-- Password field --}}
-            <div class="input-group mb-3">
-                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                    placeholder="{{ __('mail_connection.password') }}">
-
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-lock"></span>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
                     </div>
+
+                    @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
-                @error('password')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
+                {{-- MailBox field --}}
+                <div class="input-group mb-3">
+                    <input type="text" name="mail_box" class="form-control @error('mail_box') is-invalid @enderror"
+                        placeholder="{{ __('mail_connection.mail_box') }}">
 
-                    {{-- Register button --}}
-                    <div class="input-group mb-3">
-                        <button type="submit" class="btn btn-block btn-flat btn-primary">
-                            {{ __('mail_connection.register') }}
-                        </button>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-folder"></span>
+                        </div>
                     </div>
 
-                </form>
-            </div>
+                    @error('mail_box')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                {{-- Register button --}}
+                <div class="input-group mb-3">
+                    <button type="submit" class="btn btn-block btn-flat btn-primary">
+                        {{ __('mail_connection.register') }}
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 @stop

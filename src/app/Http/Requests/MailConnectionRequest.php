@@ -22,8 +22,9 @@ class MailConnectionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
+            'email'    => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
+            'mail_box' => ['string', 'regex:/^[a-zA-Z]+$/', 'nullable']
         ];
     }
 
@@ -35,6 +36,8 @@ class MailConnectionRequest extends FormRequest
             'email.email'       => trans('mail_connection.errors.email.email'),
             'password.required' => trans('mail_connection.errors.password.required'),
             'password.string'   => trans('mail_connection.errors.password.string'),
+            'mail_box.string'   => trans('mail_connection.errors.mail_box.string'),
+            'mail_box.regex'    => trans('mail_connection.errors.mail_box.regex')
         ];
     }
 }

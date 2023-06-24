@@ -5,6 +5,7 @@ return [
     'host'             => 'imap.yahoo.co.jp',
     'port'             => 993,
     'subject'          => 'カード利用のお知らせ(本人ご利用分)',
+    'default_mail_box' => 'INBOX',
     'encrypt_tyep'     => 'AES-128-CBC',
     'encrypt_password' => 'password',
     'encrypt_options'  => 0

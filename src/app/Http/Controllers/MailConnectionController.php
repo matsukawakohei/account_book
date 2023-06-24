@@ -31,6 +31,7 @@ class MailConnectionController extends Controller
             'email'      => $request->email,
             'password'   => $password,
             'ciphertext' => $ciphertext,
+            'mail_box'   => $request->mail_box ? $request->mail_box : \Config('const.mail_connection.default_mail_box'),
             'host'       => \Config('const.mail_connection.host'),
             'port'       => \Config('const.mail_connection.port'),
             'subject'    => \Config('const.mail_connection.subject')

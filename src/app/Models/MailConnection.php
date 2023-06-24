@@ -14,6 +14,7 @@ class MailConnection extends Model
         'email',
         'password',
         'ciphertext',
+        'mail_box',
         'host',
         'port',
         'subject'
