@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->string('email');
-            $table->string('password');
-            $table->string('ciphertext');
+            $table->string('cipher_password');
             $table->string('mail_box');
             $table->string('host');
             $table->integer('port');

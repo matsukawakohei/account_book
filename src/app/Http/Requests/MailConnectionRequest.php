@@ -24,7 +24,8 @@ class MailConnectionRequest extends FormRequest
         return [
             'email'    => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
-            'mail_box' => ['string', 'regex:/^[a-zA-Z]+$/', 'nullable']
+            'mail_box' => ['string', 'regex:/^[a-zA-Z]+$/', 'nullable'],
+            'subject'  => ['required', 'string']
         ];
     }
 
@@ -37,7 +38,9 @@ class MailConnectionRequest extends FormRequest
             'password.required' => trans('mail_connection.errors.password.required'),
             'password.string'   => trans('mail_connection.errors.password.string'),
             'mail_box.string'   => trans('mail_connection.errors.mail_box.string'),
-            'mail_box.regex'    => trans('mail_connection.errors.mail_box.regex')
+            'mail_box.regex'    => trans('mail_connection.errors.mail_box.regex'),
+            'subject.required'  => trans('mail_connection.errors.subject.required'),
+            'subject.string'    => trans('mail_connection.errors.subject.string')
         ];
     }
 }
