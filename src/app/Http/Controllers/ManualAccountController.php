@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ManualAccount;
+use App\Enums\StoreType;
+use App\Models\Account;
 use App\Http\Requests\ManualAccountRequest;
 
 class ManualAccountController extends Controller
@@ -14,11 +15,12 @@ class ManualAccountController extends Controller
 
     public function store(ManualAccountRequest $request)
     {
-        ManualAccount::create([
-            'user_id' => auth()->id(),
-            'name'    => $request->name,
-            'amount'  => $request->amount,
-            'date'    => $request->account_date,
+        Account::create([
+            'user_id'    => auth()->id(),
+            'name'       => $request->name,
+            'amount'     => $request->amount,
+            'date'       => $request->account_date,
+            'store_type' => StoreType::MANUAL
         ]);
 
         return redirect('/home')->with('flash_message', trans('account.register_complete'));

@@ -2,7 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\MailAccount;
+use App\Enums\StoreType;
+use App\Models\Account;
 use App\Models\User;
 use App\Services\DecryptService;
 use App\Services\ImapService;
@@ -41,11 +42,12 @@ class MailAccountRegister extends Command
                 
                 foreach($accounts as $account) {
                     
-                    MailAccount::create([
-                        'user_id' => $connection->user_id,
-                        'name'    => $account['name'],
-                        'amount'  => $account['amount'],
-                        'date'    => $account['date'],
+                    Account::create([
+                        'user_id'    => $connection->user_id,
+                        'name'       => $account['name'],
+                        'amount'     => $account['amount'],
+                        'date'       => $account['date'],
+                        'store_type' => StoreType::MAIL
                     ]);
                 }
             }
