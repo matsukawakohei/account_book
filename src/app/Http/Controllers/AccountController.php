@@ -2,15 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\StoreType;
+use App\Models\Account;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $accounts = [];
-        $accountSum = 0;
+        $date     = $request->has('date') ? new Carbon($request->date) : new Carbon();
+        $start    = $date->copy()->startOfMonth()->toDateString();
+        $end      = $date->copy()->endOfMonth()->toDateString();
 
-        return view('home', compact('accounts', 'accountSum'));
+        $aroundDate = [
+            'before' => $date->copy()->subMonthNoOverflow(),
+            'after'  => $date->copy()->addMonthNoOverflow(),
+        ];
+
+        $accounts  = Account::where('user_id', Auth::id())
+                        ->whereBetween('date', [$start, $end])
+                        ->orderBy('date')
+                        ->paginate(\Config('pagenate.page_chunk'));
+        
+        $sumAmount = Account::where('user_id', Auth::id())
+                        ->whereBetween('date', [$start, $end])
+                        ->get()
+                        ->sum('amount');
+
+        return view('home', [
+            'accounts'   => $accounts,
+            'sumAmount'  => $sumAmount,
+            'date'       => $date,
+            'aroundDate' => $aroundDate,
+            'storeType'  => StoreType::class,
+        ]);
     }
 }
