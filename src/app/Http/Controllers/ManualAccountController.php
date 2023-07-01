@@ -20,7 +20,7 @@ class ManualAccountController extends Controller
             'name'       => $request->name,
             'amount'     => $request->amount,
             'date'       => $request->account_date,
-            'store_type' => StoreType::MANUAL
+            'store_type' => StoreType::Manual
         ]);
 
         return redirect('/home')->with('flash_message', trans('account.register_complete'));

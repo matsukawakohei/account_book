@@ -47,7 +47,7 @@ class MailAccountRegister extends Command
                         'name'       => $account['name'],
                         'amount'     => $account['amount'],
                         'date'       => $account['date'],
-                        'store_type' => StoreType::MAIL
+                        'store_type' => StoreType::Mail
                     ]);
                 }
             }
