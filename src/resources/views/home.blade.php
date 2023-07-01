@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="col-sm-2">
                                     <span class="mr-2">
-                                        <a href="#" class="text-muted">
+                                        <a href="{{ route('account.edit', ['id' => $account->id]) }}" class="text-muted">
                                             <i class="fas fa-pen"></i>
                                         </a>
                                     </span>
