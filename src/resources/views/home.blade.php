@@ -40,11 +40,7 @@
 @stop
 
 @section('content')
-    @if (session('flash_message'))
-        <div class="flash_message bg-success text-center py-3 my-0">
-            {{ session('flash_message') }}
-        </div>
-    @endif
+    <x-alert />
     <div class="row">
         <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box">
@@ -95,7 +91,7 @@
                                 </div>
                                 <div class="col-sm-2">
                                     <span class="mr-2">
-                                        <a href="#" class="text-muted">
+                                        <a href="{{ route('account.edit', ['id' => $account->id]) }}" class="text-muted">
                                             <i class="fas fa-pen"></i>
                                         </a>
                                     </span>
