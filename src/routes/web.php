@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ManualAccountController;
 use App\Http\Controllers\MailConnectionController;
 use Illuminate\Support\Facades\Route;
@@ -19,9 +20,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
-    return view('home');
-})->middleware(['auth', 'verified'])->name('home');
+Route::get('/home', [AccountController::class, 'index'])
+    ->middleware(['auth', 'verified'])->name('home');
 
 Route::prefix('manual-account')->middleware(['auth', 'verified'])->group(function() {
     Route::get('/register', [ManualAccountController::class, 'create']);
