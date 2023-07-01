@@ -23,11 +23,11 @@ Route::get('/', function () {
 Route::get('/home', [AccountController::class, 'index'])
     ->middleware(['auth', 'verified'])->name('home');
 
-Route::prefix('manual-account')->middleware(['auth', 'verified'])->group(function() {
+Route::prefix('manual-account')->name('account.')->middleware(['auth', 'verified'])->group(function() {
     Route::get('/register', [ManualAccountController::class, 'create']);
     Route::post('/register', [ManualAccountController::class, 'store']);
-    Route::get('/register/{id}', [ManualAccountController::class, 'edit']);
-    Route::put('/register/{id}', [ManualAccountController::class, 'store']);
+    Route::get('/register/{id}', [ManualAccountController::class, 'edit'])->name('edit');
+    Route::put('/register/{id}', [ManualAccountController::class, 'store'])->name('update');
     Route::delete('/register/{id}', [ManualAccountController::class, 'destory']);
 });
 
