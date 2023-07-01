@@ -28,12 +28,29 @@ class ManualAccountController extends Controller
 
     public function edit(int $id)
     {
+        $account = Account::find($id);
 
+        if (is_null($account) || auth()->id() != $account->user_id) {
+            return redirect('/home')->with('warning_message', trans('account.invalid_account'));
+        }
+
+        return view('manual_account.edit', compact('account'));
     }
 
-    public function update()
+    public function update(ManualAccountRequest $request, int $id)
     {
+        $account = Account::find($id);
 
+        if (is_null($account) || auth()->id() != $account->user_id) {
+            return redirect('/home')->with('warning_message', trans('account.invalid_account'));
+        }
+
+        $account->name    = $request->name;
+        $account->amount  = $request->amount;
+        $account->date    = $request->account_date;
+        $account->save();
+
+        return redirect()->route('account.edit', ['id' => $account->id])->with('flash_message', trans('account.update_complete'));
     }
 
     public function destory(int $id)
