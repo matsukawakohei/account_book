@@ -6,6 +6,8 @@ return [
     'date'                    => '支出日時',
     'manual_account_register' => '支出登録',
     'register_complete'       => '支出の登録が完了しました。',
+    'update_complete'         => '支出の更新が完了しました。',
+    'invalid_account'         => '無効な明細が選択されました。',
     'errors'                  => [
         'name'    => [
             'required' => '支出名は必須入力です。',
