@@ -13,6 +13,7 @@
         <div class="card-body">
             <form method="post" action="{{ route('account.update', ['id' => $account->id]) }}">
                 @csrf
+                {{ method_field('put') }}
 
                 {{-- Name field --}}
                 <div class="input-group mb-3 px-5">
