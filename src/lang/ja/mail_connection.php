@@ -1,13 +1,13 @@
 <?php
 
 return [
-    'mail_connection_register' => '明細メール登録',
+    'mail_connection_register' => '明細メール受信アドレス登録',
     'email'                    => 'メールアドレス',
     'password'                 => 'メールアドレスのパスワード',
     'mail_box'                 => 'メールボックス名',
     'subject'                  => '件名',
     'register'                 => '登録する',
-    'register_complete'        => 'メール明細の登録が完了しました。',
+    'register_complete'        => '明細メール受信アドレスの登録が完了しました。',
     'errors' => [
     'email'    => [
         'required' => 'メールアドレスは必須入力です。',

@@ -1,6 +1,8 @@
-@if (session('flash_message'))
-    <div class="flash_message bg-success text-center py-3 my-0">
-        {{ session('flash_message') }}
+@if (session('success_message'))
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-check"></i> Alert!</h5>
+        {{ session('success_message') }}
     </div>
 @endif
 @if (session('warning_message'))
