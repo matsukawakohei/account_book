@@ -2,6 +2,14 @@
 
 @section('title', '支出登録')
 
+@section('css')
+<style>
+    .footer-button {
+        width: 100%;
+    }
+</style>
+@stop
+
 @section('content_header')
     <div class="card card-outline card-primary mx-auto" style="width: 40rem;">
         <div class="card-header">
@@ -50,7 +58,7 @@
                 </div>
 
                 {{-- Password field --}}
-                <div class="input-group mb-3 px-5">
+                <div class="input-group mb-4 px-5">
                     <input type="date" name="account_date" class="form-control @error('account_date') is-invalid @enderror">
 
                     <div class="input-group-append">
@@ -65,14 +73,21 @@
                         </span>
                     @enderror
                 </div>
-
-                {{-- Register button --}}
-                <div class="input-group mb-3 px-5">
-                    <button type="submit" class="btn btn-block btn-flat btn-primary">
-                        {{ __('adminlte::adminlte.register') }}
-                    </button>
+                <div class="row input-group mb-3 px-5 mx-0">
+                    {{-- Back button --}}
+                    <div class="col-sm-3 p-0">
+                        <a href="{{ route('home') }}" class="btn btn-secondary footer-button">
+                            戻る
+                        </a>
+                    </div>
+                    <div class="col-sm-6"></div>
+                    {{-- Register button --}}
+                    <div class="col-sm-3 p-0 text-right">
+                        <button type="submit" class="btn btn-primary footer-button">
+                            {{ __('adminlte::adminlte.register') }}
+                        </button>
+                    </div>
                 </div>
-
             </form>
         </div>
     </div>
