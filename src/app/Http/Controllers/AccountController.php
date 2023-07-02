@@ -21,28 +21,24 @@ class AccountController extends Controller
             'after'  => $date->copy()->addMonthNoOverflow(),
         ];
 
-        $accounts   = Account::where('user_id', Auth::id())
+        $accounts = Account::where('user_id', Auth::id())
                         ->whereBetween('date', [$start, $end])
                         ->orderBy('date')
                         ->paginate(\Config('pagenate.page_chunk'));
 
-        $sumAmount  = Account::where('user_id', Auth::id())
-                        ->whereBetween('date', [$start, $end])
-                        ->get()
-                        ->sum('amount');
+        $monthAccounts = Account::where('user_id', Auth::id())
+                            ->whereBetween('date', [$start, $end])
+                            ->get();
 
-        $maxAccount = Account::where('user_id', Auth::id())
-                        ->whereBetween('date', [$start, $end])
-                        ->orderByDesc('amount')
-                        ->orderByDesc('id')
-                        ->first();
+        $sumAmount = $monthAccounts->sum('amount');
+        $maxAmount = $monthAccounts->max('amount');
 
         return view('home', [
             'accounts'   => $accounts,
             'sumAmount'  => $sumAmount,
             'date'       => $date,
             'aroundDate' => $aroundDate,
-            'maxAccount' => $maxAccount,
+            'maxAmount'  => $maxAmount,
             'storeType'  => StoreType::class,
         ]);
     }
