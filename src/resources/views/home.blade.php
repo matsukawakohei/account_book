@@ -61,9 +61,9 @@
             <div class="info-box">
                 <span class="info-box-icon bg-info elevation-1"><i class="fas fa-angle-double-up"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">{{ $maxAccount->name }}</span>
+                        <span class="info-box-text">明細別最高金額</span>
                         <h3 class="info-box-number">
-                        {{ number_format($maxAccount->amount) }}
+                            {{ number_format($maxAmount) }}
                         </h3>
                     </div>
                 </div>
