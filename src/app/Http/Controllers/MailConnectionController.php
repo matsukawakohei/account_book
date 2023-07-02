@@ -27,6 +27,6 @@ class MailConnectionController extends Controller
             'subject'         => $request->subject
         ]);
 
-        return redirect('/home')->with('flash_message', trans('account.register_complete'));
+        return redirect('/home')->with('success_message', trans('mail_connection.register_complete'));
     }
 }

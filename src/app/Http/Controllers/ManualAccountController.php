@@ -23,7 +23,7 @@ class ManualAccountController extends Controller
             'store_type' => StoreType::Manual
         ]);
 
-        return redirect('/home')->with('flash_message', trans('account.register_complete'));
+        return redirect('/home')->with('success_message', trans('account.register_complete'));
     }
 
     public function edit(int $id)
@@ -50,7 +50,7 @@ class ManualAccountController extends Controller
         $account->date    = $request->account_date;
         $account->save();
 
-        return redirect()->route('account.edit', ['id' => $account->id])->with('flash_message', trans('account.update_complete'));
+        return redirect()->route('account.edit', ['id' => $account->id])->with('success_message', trans('account.update_complete'));
     }
 
     public function destory(int $id)
@@ -64,6 +64,6 @@ class ManualAccountController extends Controller
         $date = $account->date;
         $account->delete();
 
-        return redirect()->route('home', ['date' => $date])->with('flash_message', trans('account.delete_complete'));;
+        return redirect()->route('home', ['date' => $date])->with('success_message', trans('account.delete_complete'));;
     }
 }
