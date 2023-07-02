@@ -55,6 +55,15 @@ class ManualAccountController extends Controller
 
     public function destory(int $id)
     {
+        $account = Account::find($id);
 
+        if (is_null($account) || auth()->id() != $account->user_id) {
+            return redirect('/home')->with('warning_message', trans('account.invalid_account'));
+        }
+
+        $date = $account->date;
+        $account->delete();
+
+        return redirect()->route('home', ['date' => $date])->with('flash_message', trans('account.delete_complete'));;
     }
 }

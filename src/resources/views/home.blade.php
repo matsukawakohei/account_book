@@ -7,6 +7,10 @@
     .month-link {
         cursor: pointer
     }
+    .delete-button {
+        border: none;
+        background-color: transparent;
+    }
 </style>
 @stop
 
@@ -80,7 +84,7 @@
                                 {{ sprintf('%s', number_format($account->amount)) }}
                             </td>
                             <td class="row d-flex align-items-center justify-content-center">
-                                <div class="col-sm-2">
+                                <div class="col-sm-2 d-flex align-items-center justify-content-center">
                                 @if($storeType::from($account->store_type) === $storeType::Mail)
                                     <span class="mr-2"><i class="far fa-envelope"></i></span>
                                 @elseif($storeType::from($account->store_type) == $storeType::Manual)
@@ -89,18 +93,24 @@
                                     <span class="mr-2"><i class="fas fa-question"></i></span>
                                 @endif
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-2 d-flex align-items-center justify-content-center">
                                     <span class="mr-2">
                                         <a href="{{ route('account.edit', ['id' => $account->id]) }}" class="text-muted">
                                             <i class="fas fa-pen"></i>
                                         </a>
                                     </span>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-2 d-flex align-items-center justify-content-center">
                                     <span class="mr-2">
-                                        <a href="#" class="text-muted">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </a>
+                                        <form method="post" action="{{ route('account.delete', ['id' => $account->id]) }}">
+                                            @csrf
+                                            {{ method_field('delete') }}
+                                            <button type="submit" class="delete-button">
+                                                <a class="text-muted">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </a>
+                                            </button>
+                                        </form>
                                     </span>
                                 </div>
                             </td>

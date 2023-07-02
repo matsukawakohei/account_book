@@ -28,7 +28,7 @@ Route::prefix('manual-account')->name('account.')->middleware(['auth', 'verified
     Route::post('/register', [ManualAccountController::class, 'store']);
     Route::get('/register/{id}', [ManualAccountController::class, 'edit'])->name('edit');
     Route::put('/register/{id}', [ManualAccountController::class, 'update'])->name('update');
-    Route::delete('/register/{id}', [ManualAccountController::class, 'destory']);
+    Route::delete('/register/{id}', [ManualAccountController::class, 'destory'])->name('delete');
 });
 
 Route::prefix('mail-connection')->middleware(['auth', 'verified'])->group(function() {

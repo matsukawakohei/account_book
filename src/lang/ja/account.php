@@ -8,6 +8,7 @@ return [
     'manual_account_update'   => '支出編集',
     'register_complete'       => '支出の登録が完了しました。',
     'update_complete'         => '支出の更新が完了しました。',
+    'delete_complete'         => '支出の削除が完了しました。',
     'invalid_account'         => '無効な明細が選択されました。',
     'errors'                  => [
         'name'    => [
