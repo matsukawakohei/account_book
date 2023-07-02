@@ -2,6 +2,14 @@
 
 @section('title', '明細メール登録')
 
+@section('css')
+<style>
+    .footer-button {
+        width: 100%;
+    }
+</style>
+@stop
+
 @section('content_header')
     <div class="card card-outline card-primary mx-auto" style="width: 40rem;">
         <div class="card-header">
@@ -14,7 +22,7 @@
                 @csrf
 
                 {{-- Email field --}}
-                <div class="input-group mb-3">
+                <div class="input-group mb-3 px-5">
                     <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
                         value="{{ old('email') }}" placeholder="{{ __('mail_connection.email') }}" autofocus>
 
@@ -32,7 +40,7 @@
                 </div>
 
                 {{-- Password field --}}
-                <div class="input-group mb-3">
+                <div class="input-group mb-3 px-5">
                     <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
                         placeholder="{{ __('mail_connection.password') }}">
 
@@ -50,7 +58,7 @@
                 </div>
 
                 {{-- MailBox field --}}
-                <div class="input-group mb-3">
+                <div class="input-group mb-3 px-5">
                     <input type="text" name="mail_box" class="form-control @error('mail_box') is-invalid @enderror"
                         placeholder="{{ __('mail_connection.mail_box') }}">
 
@@ -68,7 +76,7 @@
                 </div>
 
                 {{-- Subjct field --}}
-                <div class="input-group mb-3">
+                <div class="input-group mb-3 px-5">
                     <input type="text" name="subject" class="form-control @error('subject') is-invalid @enderror"
                         placeholder="{{ __('mail_connection.subject') }}">
 
@@ -85,11 +93,20 @@
                     @enderror
                 </div>
 
-                {{-- Register button --}}
-                <div class="input-group mb-3">
-                    <button type="submit" class="btn btn-block btn-flat btn-primary">
-                        {{ __('mail_connection.register') }}
-                    </button>
+                <div class="row input-group mb-3 px-5 mx-0">
+                    {{-- Back button --}}
+                    <div class="col-sm-3 p-0">
+                        <a href="{{ route('home') }}" class="btn btn-secondary footer-button">
+                            戻る
+                        </a>
+                    </div>
+                    <div class="col-sm-6"></div>
+                    {{-- Register button --}}
+                    <div class="col-sm-3 p-0 text-right">
+                        <button type="submit" class="btn btn-primary footer-button">
+                            {{ __('adminlte::adminlte.register') }}
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>

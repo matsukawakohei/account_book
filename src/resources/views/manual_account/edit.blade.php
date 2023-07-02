@@ -2,6 +2,14 @@
 
 @section('title', '支出編集')
 
+@section('css')
+<style>
+    .footer-button {
+        width: 100%;
+    }
+</style>
+@stop
+
 @section('content_header')
     <x-alert />
     <div class="card card-outline card-primary mx-auto" style="width: 40rem;">
@@ -69,13 +77,21 @@
                     @enderror
                 </div>
 
-                {{-- Register button --}}
-                <div class="input-group mb-3 px-5">
-                    <button type="submit" class="btn btn-block btn-flat btn-primary">
-                        {{ __('adminlte::adminlte.register') }}
-                    </button>
+                <div class="row input-group mb-3 px-5 mx-0">
+                    {{-- Back button --}}
+                    <div class="col-sm-3 p-0">
+                        <a href="{{ route('home', ['date' => $account->date]) }}" class="btn btn-secondary footer-button">
+                            戻る
+                        </a>
+                    </div>
+                    <div class="col-sm-6"></div>
+                    {{-- Register button --}}
+                    <div class="col-sm-3 p-0 text-right">
+                        <button type="submit" class="btn btn-primary footer-button">
+                            {{ __('adminlte::adminlte.register') }}
+                        </button>
+                    </div>
                 </div>
-
             </form>
         </div>
     </div>
