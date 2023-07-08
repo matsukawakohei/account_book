@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\MailConnection;
 use Illuminate\Http\Request;
 use App\Http\Requests\MailConnectionRequest;
+use App\Http\Requests\MailConnectionUpdateRequest;
 use App\Services\EncryptService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class MailConnectionController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $mailConnections = MailConnection::where('user_id', auth()->id())->get();
 
@@ -37,5 +38,26 @@ class MailConnectionController extends Controller
         ]);
 
         return redirect()->route('mail_connection.index')->with('success_message', trans('mail_connection.register_complete'));
+    }
+
+    public function edit(MailConnection $mailConnection): View
+    {
+        return view('mail-connection.edit', compact('mailConnection'));
+    }
+
+    public function update(MailConnectionUpdateRequest $request, MailConnection $mailConnection): RedirectResponse
+    {
+        $mailConnection->email    = $request->email;
+
+        if ($request->password) {
+            $mailConnection->cipher_password = EncryptService::execEncrypt($request->password);
+        }
+
+        $mailConnection->mail_box = $request->mail_box ?: \Config('const.mail_connection.default_mail_box');
+        $mailConnection->subject  = $request->subject;
+
+        $mailConnection->save();
+
+        return redirect()->route('mail_connection.index')->with('success_message', trans('mail_connection.update_complete'));
     }
 }

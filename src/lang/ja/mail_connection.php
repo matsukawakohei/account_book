@@ -2,12 +2,14 @@
 
 return [
     'mail_connection_register' => '明細メール受信アドレス登録',
+    'mail_connection_edit'     => '明細メール受信アドレス編集',
     'email'                    => 'メールアドレス',
     'password'                 => 'メールアドレスのパスワード',
     'mail_box'                 => 'メールボックス名',
     'subject'                  => '件名',
     'register'                 => '登録する',
     'register_complete'        => '明細メール受信アドレスの登録が完了しました。',
+    'update_complete'          => '明細メール受信アドレスの更新が完了しました。',
     'errors' => [
     'email'    => [
         'required' => 'メールアドレスは必須入力です。',
