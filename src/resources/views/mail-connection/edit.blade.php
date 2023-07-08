@@ -14,7 +14,7 @@
     <div class="card card-outline card-primary mx-auto" style="width: 40rem;">
         <div class="card-header">
             <h2 class="card-title float-none text-center">
-                {{ __('mail_connection.mail_connection_register') }}
+                {{ __('mail_connection.mail_connection_edit') }}
             </h2>
         </div>
         <div class="card-body">
