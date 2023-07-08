@@ -35,8 +35,10 @@ Route::prefix('mail-connection')->name('mail_connection.')->middleware(['auth', 
     Route::get('', [MailConnectionController::class, 'index'])->name('index');
     Route::get('/register', [MailConnectionController::class, 'create'])->name('create');
     Route::post('/register', [MailConnectionController::class, 'store']);
-    Route::get('/register/{id}', [MailConnectionController::class, 'edit'])->name('edit');
-    Route::put('/register/{id}', [MailConnectionController::class, 'update']);
+    Route::get('/register/{mail_connection}', [MailConnectionController::class, 'edit'])->name('edit')
+        ->whereNumber('mail_connection');
+    Route::put('/register/{mail_connection}', [MailConnectionController::class, 'update'])->name('update')
+        ->whereNumber('mail_connection');;
     Route::delete('/register/{id}', [MailConnectionController::class, 'destory'])->name('delete');
 });
 
