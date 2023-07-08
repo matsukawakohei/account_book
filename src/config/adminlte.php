@@ -291,8 +291,8 @@ return [
 
     'menu' => [
         [
-            'text' => '明細メール登録',
-            'url'  => 'mail-connection/register',
+            'text' => 'メールアカウント情報',
+            'url'  => 'mail-connection',
         ],
         [
             'text' => '支出登録',
