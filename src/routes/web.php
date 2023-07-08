@@ -31,11 +31,13 @@ Route::prefix('manual-account')->name('account.')->middleware(['auth', 'verified
     Route::delete('/register/{id}', [ManualAccountController::class, 'destory'])->name('delete');
 });
 
-Route::prefix('mail-connection')->middleware(['auth', 'verified'])->group(function() {
-    Route::get('/register', [MailConnectionController::class, 'create']);
+Route::prefix('mail-connection')->name('mail_connection.')->middleware(['auth', 'verified'])->group(function() {
+    Route::get('', [MailConnectionController::class, 'index'])->name('index');
+    Route::get('/register', [MailConnectionController::class, 'create'])->name('create');
     Route::post('/register', [MailConnectionController::class, 'store']);
-    Route::get('/register/{id}', [MailConnectionController::class, 'edit']);
+    Route::get('/register/{id}', [MailConnectionController::class, 'edit'])->name('edit');
     Route::put('/register/{id}', [MailConnectionController::class, 'update']);
+    Route::delete('/register/{id}', [MailConnectionController::class, 'destory'])->name('delete');
 });
 
 require __DIR__.'/auth.php';
