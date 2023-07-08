@@ -6,15 +6,24 @@ use App\Models\MailConnection;
 use Illuminate\Http\Request;
 use App\Http\Requests\MailConnectionRequest;
 use App\Services\EncryptService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class MailConnectionController extends Controller
 {
-    public function create()
+    public function index()
+    {
+        $mailConnections = MailConnection::where('user_id', auth()->id())->get();
+
+        return view('mail-connection.index', compact('mailConnections'));
+    }
+
+    public function create(): View
     {
         return view('mail-connection.register');
     }
 
-    public function store(MailConnectionRequest $request)
+    public function store(MailConnectionRequest $request): RedirectResponse
     {
         $ciphertext = EncryptService::execEncrypt($request->password);
         MailConnection::create([
