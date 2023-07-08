@@ -1,11 +1,11 @@
 @extends('adminlte::auth.auth-page', ['auth_type' => 'login'])
 
-@php( $password_email_url = View::getSection('password_email_url') ?? config('adminlte.password_email_url', 'password/email') )
+@php( $password_reset_url = View::getSection('password_reset_url') ?? config('adminlte.password_reset_url', 'password/reset') )
 
 @if (config('adminlte.use_route_url', false))
-    @php( $password_email_url = $password_email_url ? route($password_email_url) : '' )
+    @php( $password_reset_url = $password_reset_url ? route($password_reset_url) : '' )
 @else
-    @php( $password_email_url = $password_email_url ? url($password_email_url) : '' )
+    @php( $password_reset_url = $password_reset_url ? url($password_reset_url) : '' )
 @endif
 
 @section('auth_header', __('adminlte::adminlte.password_reset_message'))
@@ -18,7 +18,7 @@
         </div>
     @endif
 
-    <form action="{{ $password_email_url }}" method="post">
+    <form action="{{ $password_reset_url }}" method="post">
         @csrf
 
         {{-- Email field --}}

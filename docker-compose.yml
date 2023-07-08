@@ -28,5 +28,12 @@ services:
       - 80:80
     depends_on:
       - app
+  mailpit:
+    image: 'axllent/mailpit:latest'
+    ports:
+      - '1025:1025'
+      - '8025:8025'
+    environment:
+      - TZ=Asia/Tokyo
 volumes:
   account-book-db:

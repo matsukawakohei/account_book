@@ -1,26 +1,26 @@
 @extends('adminlte::auth.auth-page', ['auth_type' => 'login'])
 
-@php( $password_reset_url = View::getSection('password_reset_url') ?? config('adminlte.password_reset_url', 'password/reset') )
+@php( $password_email_url = View::getSection('password_email_url') ?? config('adminlte.password_email_url', 'password/email') )
 
 @if (config('adminlte.use_route_url', false))
-    @php( $password_reset_url = $password_reset_url ? route($password_reset_url) : '' )
-@else
-    @php( $password_reset_url = $password_reset_url ? url($password_reset_url) : '' )
-@endif
+    @php( $password_email_url = $password_email_url ? route($password_email_url) : '' )
+ @else
+    @php( $password_email_url = $password_email_url ? url($password_email_url) : '' )
+ @endif
 
 @section('auth_header', __('adminlte::adminlte.password_reset_message'))
 
 @section('auth_body')
-    <form action="{{ $password_reset_url }}" method="post">
+    <form action="{{ $password_email_url }}" method="post">
         @csrf
 
         {{-- Token field --}}
-        <input type="hidden" name="token" value="{{ $token }}">
+        <input type="hidden" name="token" value="{{ $request->token }}">
 
         {{-- Email field --}}
         <div class="input-group mb-3">
             <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                   value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}" autofocus>
+                   value="{{ old('email', $request->email) }}" placeholder="{{ __('adminlte::adminlte.email') }}" autofocus>
 
             <div class="input-group-append">
                 <div class="input-group-text">
