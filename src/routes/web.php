@@ -39,7 +39,7 @@ Route::prefix('mail-connection')->name('mail_connection.')->middleware(['auth', 
         ->whereNumber('mail_connection');
     Route::put('/register/{mail_connection}', [MailConnectionController::class, 'update'])->name('update')
         ->whereNumber('mail_connection');
-    Route::delete('/register/{mail_connection}', [MailConnectionController::class, 'destory'])->name('delete')
+    Route::delete('/register/{mail_connection}', [MailConnectionController::class, 'destroy'])->name('delete')
         ->whereNumber('mail_connection');
 });
 
