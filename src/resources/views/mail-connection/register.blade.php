@@ -96,7 +96,7 @@
                 <div class="row input-group mb-3 px-5 mx-0">
                     {{-- Back button --}}
                     <div class="col-sm-3 p-0">
-                        <a href="{{ route('home') }}" class="btn btn-secondary footer-button">
+                        <a href="{{ route('mail_connection.index') }}" class="btn btn-secondary footer-button">
                             戻る
                         </a>
                     </div>
