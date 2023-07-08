@@ -60,7 +60,7 @@
                 {{-- MailBox field --}}
                 <div class="input-group mb-3 px-5">
                     <input type="text" name="mail_box" class="form-control @error('mail_box') is-invalid @enderror"
-                        placeholder="{{ __('mail_connection.mail_box') }}">
+                        placeholder="{{ __('mail_connection.mail_box') }}" value="{{ old('mail_box') }}">
 
                     <div class="input-group-append">
                         <div class="input-group-text">
@@ -78,7 +78,7 @@
                 {{-- Subjct field --}}
                 <div class="input-group mb-3 px-5">
                     <input type="text" name="subject" class="form-control @error('subject') is-invalid @enderror"
-                        placeholder="{{ __('mail_connection.subject') }}">
+                        placeholder="{{ __('mail_connection.subject') }}" value="{{ old('subject') }}">
 
                     <div class="input-group-append">
                         <div class="input-group-text">
