@@ -36,6 +36,6 @@ class MailConnectionController extends Controller
             'subject'         => $request->subject
         ]);
 
-        return redirect('/home')->with('success_message', trans('mail_connection.register_complete'));
+        return redirect()->route('mail_connection.index')->with('success_message', trans('mail_connection.register_complete'));
     }
 }
