@@ -11,7 +11,7 @@ use Illuminate\View\View;
 
 class MailConnectionController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $mailConnections = MailConnection::where('user_id', auth()->id())->get();
 
@@ -35,6 +35,18 @@ class MailConnectionController extends Controller
             'port'            => \Config('const.mail_connection.port'),
             'subject'         => $request->subject
         ]);
+
+        return redirect()->route('mail_connection.index')->with('success_message', trans('mail_connection.register_complete'));
+    }
+
+    public function edit(MailConnection $mailConnection): View
+    {
+        return view('mail-connection.edit', compact('mailConnection'));
+    }
+
+    public function update(Request $request, MailConnection $mailConnection): RedirectResponse
+    {
+        \Log::error('request', $request->all());
 
         return redirect()->route('mail_connection.index')->with('success_message', trans('mail_connection.register_complete'));
     }
