@@ -38,8 +38,9 @@ Route::prefix('mail-connection')->name('mail_connection.')->middleware(['auth', 
     Route::get('/register/{mail_connection}', [MailConnectionController::class, 'edit'])->name('edit')
         ->whereNumber('mail_connection');
     Route::put('/register/{mail_connection}', [MailConnectionController::class, 'update'])->name('update')
-        ->whereNumber('mail_connection');;
-    Route::delete('/register/{id}', [MailConnectionController::class, 'destory'])->name('delete');
+        ->whereNumber('mail_connection');
+    Route::delete('/register/{mail_connection}', [MailConnectionController::class, 'destroy'])->name('delete')
+        ->whereNumber('mail_connection');
 });
 
 require __DIR__.'/auth.php';

@@ -60,4 +60,11 @@ class MailConnectionController extends Controller
 
         return redirect()->route('mail_connection.index')->with('success_message', trans('mail_connection.update_complete'));
     }
+
+    public function destroy(MailConnection $mailConnection): RedirectResponse
+    {
+        $mailConnection->delete();
+
+        return redirect()->route('mail_connection.index')->with('success_message', trans('mail_connection.delete_complete'));
+    }
 }
