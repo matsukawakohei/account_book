@@ -24,7 +24,7 @@ class AccountController extends Controller
         $accounts = Account::where('user_id', Auth::id())
                         ->whereBetween('date', [$start, $end])
                         ->orderBy('date')
-                        ->paginate(\Config('pagenate.page_chunk'));
+                        ->get();
 
         $monthAccounts = Account::where('user_id', Auth::id())
                             ->whereBetween('date', [$start, $end])
