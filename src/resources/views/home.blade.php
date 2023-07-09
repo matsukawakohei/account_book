@@ -3,6 +3,7 @@
 @section('title', 'AdminLTE')
 
 @section('css')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />
 <style>
     .month-link {
         cursor: pointer
@@ -74,14 +75,24 @@
         <div class="card-header border-0">
             <h3 class="card-title">項目別</h3>
         </div>
-        <div class="card-body table-responsive p-0">
-            <table class="table table-striped table-valign-middle">
+        <div class="card-body">
+            <table id="account-table" class="compact stripe table-bordered">
                 <thead>
                     <tr>
                         <th>日付</th>
                         <th>項目名</th>
-                        <th>金額</th>
-                        <th></th>
+                        <th class="p-0">
+                            <div class="text-center">金額</div>
+                        </th>
+                        <th>
+                            <div class="text-center">種別</div>
+                        </th>
+                        <th>
+                            <div class="text-center">編集</div>
+                        </th>
+                        <th>
+                            <div class="text-center">削除</div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -93,47 +104,50 @@
                             {{ $account->name }}
                         </td>
                         <td>
-                            {{ sprintf('%s', number_format($account->amount)) }}
+                            <div class="text-right">
+                                {{ sprintf('%s', number_format($account->amount)) }}
+                            </div>
                         </td>
-                        <td class="row d-flex align-items-center justify-content-center">
-                            <div class="col-sm-2 d-flex align-items-center justify-content-center">
-                            @if($storeType::from($account->store_type) === $storeType::Mail)
-                                <span class="mr-2"><i class="far fa-envelope"></i></span>
-                            @elseif($storeType::from($account->store_type) == $storeType::Manual)
-                                <span class="mr-2"><i class="far fa-edit"></i></span>
-                            @else
-                                <span class="mr-2"><i class="fas fa-question"></i></span>
-                            @endif
+                        <td>
+                            <div class="d-flex align-items-center justify-content-center">
+                                @if($storeType::from($account->store_type) === $storeType::Mail)
+                                    <span><i class="far fa-envelope"></i></span>
+                                @elseif($storeType::from($account->store_type) == $storeType::Manual)
+                                    <span><i class="far fa-edit"></i></span>
+                                @else
+                                    <span><i class="fas fa-question"></i></span>
+                                @endif
                             </div>
-                            <div class="col-sm-2 d-flex align-items-center justify-content-center">
-                                <span class="mr-2">
-                                    <a href="{{ route('account.edit', ['id' => $account->id]) }}" class="text-muted">
-                                        <i class="fas fa-pen"></i>
-                                    </a>
-                                </span>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <a href="{{ route('account.edit', ['id' => $account->id]) }}" class="text-muted">
+                                    <i class="fas fa-pen"></i>
+                                </a>
                             </div>
-                            <div class="col-sm-2 d-flex align-items-center justify-content-center">
-                                <span class="mr-2">
-                                    <form method="post" action="{{ route('account.delete', ['id' => $account->id]) }}">
-                                        @csrf
-                                        {{ method_field('delete') }}
-                                        <button type="submit" class="delete-button">
-                                            <a class="text-muted">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a>
-                                        </button>
-                                    </form>
-                                </span>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <form method="post" action="{{ route('account.delete', ['id' => $account->id]) }}">
+                                    @csrf
+                                    {{ method_field('delete') }}
+                                    <button type="submit" class="delete-button">
+                                        <a class="text-muted">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </button>
+                                </form>
                             </div>
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-            <div class="mt-3 mb-3 row justify-content-center">
-                {{ $accounts->appends(request()->query())->links() }}
-            </div>
         </div>
     </div>
     
+@stop
+
+@section('js')
+@vite('resources/js/account/index.js')
 @stop
