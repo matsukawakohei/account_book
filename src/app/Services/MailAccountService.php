@@ -16,12 +16,9 @@ class MailAccountService
     public static function getMailAccounts(array $bodies): array
     {
         $result = [];
-        $targetBody = \Config('const.mail_account.target_start_body');
 
         foreach($bodies as $body) {
-            $bodyArray = explode("\n", $body);
-            $key       = array_search($targetBody, $bodyArray, true);
-            $result    = array_merge($result, self::getAccounts($key, $bodyArray));
+            $result = array_merge($result, self::getAccounts($body));
         }
 
         return $result;
@@ -30,89 +27,81 @@ class MailAccountService
     /**
      * メール本文から明細情報を取得する
      * 
-     * @param int   $key       明細情報の一つ前の行番号
-     * @param array $bodyArray 改行区切りで配列にした本文
+     * @param string $body 改行区切りで配列にした本文
      * 
      * @return array 明細情報
      */
-    private static function getAccounts(int $key, array $bodyArray): array
+    private static function getAccounts(string $body): array
     {
         $accounts = [];
-        while ($key++) {
-            if (mb_strpos($bodyArray[$key], \Config('const.mail_account.target_end_body'))) {
-                break;
-            }
-            $account           = [];
-            $accountArray      = explode(' ', $bodyArray[$key]);
-            $account['date']   = self::getDate($accountArray);
-            $afterNameKey      = self::getAfeterNameKey($accountArray);
-            $account['name']   = self::getName($afterNameKey, $accountArray);
-            $account['amount'] = self::getAmount($afterNameKey, $accountArray);
-            $accounts[]        = $account;
+        $start = 0;
+        while ($dayOfPaymentPos = mb_strpos($body, config('const.mail_account.day_of_payment_word'), $start)) {
+            $account = [];
+
+            // 支払日
+            $endPos          = mb_strpos($body, PHP_EOL, $dayOfPaymentPos);
+            $dayOfPayment    = self::subStrAccountValue($body, $dayOfPaymentPos, $endPos);
+            $account['date'] = self::getDateString($dayOfPayment);
+
+            // 項目名
+            $start           = $endPos;
+            $accountNamePos  = mb_strpos($body, config('const.mail_account.account_name_word'), $start);
+            $endPos          = mb_strpos($body, PHP_EOL, $accountNamePos);
+            $account['name'] = self::subStrAccountValue($body, $accountNamePos, $endPos);
+
+            // 金額
+            $start             = $endPos;
+            $amountPos         = mb_strpos($body, config('const.mail_account.amount_word'), $start);
+            $endPos            = mb_strpos($body, PHP_EOL, $amountPos);
+            $amount            = self::subStrAccountValue($body, $amountPos, $endPos);
+            $account['amount'] = self::getAmountNum($amount);
+
+            $accounts[] = $account;
         }
+
         return $accounts;
     }
 
     /**
-     * 支出発生日を取得する
+     * メール本文から目的の文字列を抽出する
      * 
-     * @param array $bodyArray 改行区切りで配列にした本文
+     * @param string $body     メール本文
+     * @param int    $startPos 開始位置
+     * @param int    $endPos   終了位置
      * 
-     * @return string 支出発生日
+     * @return string 抽出した文字列
      */
-    private static function getDate(array $accountArray): string
+    private static function subStrAccountValue(string $body, int $startPos, int $endPos): string
     {
-        $date = new Carbon($accountArray[\Config('const.mail_account.body_date_index')]);
-        return $date->toDateString();
+        $targetValue     = mb_substr($body, $startPos, ($endPos - $startPos));
+        [, $targetValue] = explode(config('const.mail_account.separator'), $targetValue);
+        
+        return trim($targetValue);
     }
 
     /**
-     * 支出項目名の次の行番号を取得する
+     * 日付形式を変更した文字列を返す
      * 
-     * @param array $bodyArray 改行区切りで配列にした本文
+     * @param string $date 日付文字列
      * 
-     * @return int 支出項目名の次の行番号
+     * @return string 日付形式を変更した文字列
      */
-    private static function getAfeterNameKey(array $accountArray): int
+    private static function getDateString(string $date): string
     {
-        if (array_search(\Config('const.mail_account.after_name_value_master'), $accountArray, true)) {
-            $result = array_search(\Config('const.mail_account.after_name_value_master'), $accountArray, true);
-        } else {
-            $result = array_search(\Config('const.mail_account.after_name_value_not_master'), $accountArray, true);
-        }
+        $carbon = new Carbon($date);
 
-        return $result;
+        return $carbon->toDateString();
     }
 
     /**
-     * 支出項目名を取得する
+     * 金額の文字列から数字だけを抽出する(円とか,とかを削除する)
      * 
-     * @param int   $afterNameKey 支出項目名の次の行番号
-     * @param array $bodyArray 改行区切りで配列にした本文
+     * @param string $amount 金額の文字列
      * 
-     * @return string 支出項目名
+     * @return int 金額
      */
-    private static function getName(int $afterNameKey, array $accountArray): string
+    private static function getAmountNum(string $amount): int
     {
-        $name = '';
-        for ($i = \Config('const.mail_account.body_name_start_index'); $i < $afterNameKey; $i++) {
-            $name .= $accountArray[$i];
-        }
-
-        return trim($name);
-    }
-
-    /**
-     * 支出金額を取得する
-     * 
-     * @param int   $afterNameKey 支出項目名の次の行番号
-     * @param array $bodyArray 改行区切りで配列にした本文
-     * 
-     * @return int 支出金額
-     */
-    private static function getAmount(int $afterNameKey, array $accountArray): int
-    {
-        $amount = $accountArray[$afterNameKey + \Config('const.mail_account.body_amount_index_from_master')];
-        return str_replace(',', '', $amount);
+        return preg_replace('/[^0-9]/u', '', $amount);
     }
 }
