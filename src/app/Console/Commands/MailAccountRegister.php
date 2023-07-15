@@ -39,9 +39,8 @@ class MailAccountRegister extends Command
                 $password = DecryptService::execDecrypt($connection->cipher_password);
                 $bodies    = ImapService::getMailBodys($connection, $password);
                 $accounts = MailAccountService::getMailAccounts($bodies);
-                
+
                 foreach($accounts as $account) {
-                    
                     Account::create([
                         'user_id'    => $connection->user_id,
                         'name'       => $account['name'],
