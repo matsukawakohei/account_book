@@ -23,4 +23,4 @@ $('.delete-button').click(function(e) {
     if (next) {
         $(this).closest('tr').find('.delete-form').submit();
     }
-})
+});
