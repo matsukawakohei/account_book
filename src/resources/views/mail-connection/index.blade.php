@@ -53,7 +53,7 @@
                 <tbody>
                     @foreach($mailConnections as $mailConnection)
                     <tr>
-                        <td>
+                        <td class="mail-address">
                             {{ $mailConnection->email }}
                         <td>
                             {{ $mailConnection->mail_box }}
@@ -70,7 +70,7 @@
                         </td>
                         <td>
                             <div class="d-flex align-items-center justify-content-center">
-                                <form method="post" action="{{ route('mail_connection.delete', $mailConnection) }}">
+                                <form method="post" action="{{ route('mail_connection.delete', $mailConnection) }}" class="delete-form">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="delete-button">
@@ -93,4 +93,8 @@
         </div>
     </div>
     
+@stop
+
+@section('js')
+@vite('resources/js/mail-connection/index.js')
 @stop

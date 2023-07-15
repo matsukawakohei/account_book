@@ -100,7 +100,7 @@
                     <tr>
                         <td>
                             {{ $account->date }}
-                        <td>
+                        <td class="account-name">
                             {{ $account->name }}
                         </td>
                         <td>
@@ -128,10 +128,10 @@
                         </td>
                         <td>
                             <div class="d-flex align-items-center justify-content-center">
-                                <form method="post" action="{{ route('account.delete', $account) }}">
+                                <form method="post" action="{{ route('account.delete', $account) }}" class="delete-form">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" class="delete-button">
+                                    <button type="button" class="delete-button">
                                         <a class="text-muted">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
