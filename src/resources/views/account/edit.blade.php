@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', '支出登録')
+@section('title', '支出編集')
 
 @section('css')
 <style>
@@ -11,20 +11,22 @@
 @stop
 
 @section('content_header')
+    <x-alert />
     <div class="card card-outline card-primary mx-auto" style="width: 40rem;">
         <div class="card-header">
             <h2 class="card-title float-none text-center">
-                {{ __('account.manual_account_register') }}
+                {{ __('account.manual_account_update') }}
             </h2>
         </div>
         <div class="card-body">
-            <form method="post">
+            <form method="post" action="{{ route('account.update', $account) }}">
                 @csrf
+                @method('put')
 
                 {{-- Name field --}}
                 <div class="input-group mb-3 px-5">
                     <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                            value="{{ old('name') }}" placeholder="{{ __('account.name') }}" autofocus>
+                            value="{{ old('name', $account->name) }}" placeholder="{{ __('account.name') }}" autofocus>
 
                     <div class="input-group-append">
                         <div class="input-group-text">
@@ -42,7 +44,7 @@
                 {{-- Amount field --}}
                 <div class="input-group mb-3 px-5">
                     <input type="text" name="amount" class="form-control @error('amount') is-invalid @enderror"
-                            value="{{ old('amount') }}" placeholder="{{ __('account.amount') }}">
+                            value="{{ old('amount', $account->amount) }}" placeholder="{{ __('account.amount') }}">
 
                     <div class="input-group-append">
                         <div class="input-group-text">
@@ -57,9 +59,10 @@
                     @enderror
                 </div>
 
-                {{-- Password field --}}
-                <div class="input-group mb-4 px-5">
-                    <input type="date" name="account_date" class="form-control @error('account_date') is-invalid @enderror">
+                {{-- Date field --}}
+                <div class="input-group mb-3 px-5">
+                    <input type="date" name="account_date" class="form-control @error('account_date') is-invalid @enderror"
+                      value="{{ old('date', $account->date) }}">
 
                     <div class="input-group-append">
                         <div class="input-group-text">
@@ -73,10 +76,11 @@
                         </span>
                     @enderror
                 </div>
+
                 <div class="row input-group mb-3 px-5 mx-0">
                     {{-- Back button --}}
                     <div class="col-sm-3 p-0">
-                        <a href="{{ route('home') }}" class="btn btn-secondary footer-button">
+                        <a href="{{ route('account.index') }}" class="btn btn-secondary footer-button">
                             戻る
                         </a>
                     </div>

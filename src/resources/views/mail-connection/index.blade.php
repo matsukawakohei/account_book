@@ -72,7 +72,7 @@
                             <div class="d-flex align-items-center justify-content-center">
                                 <form method="post" action="{{ route('mail_connection.delete', $mailConnection) }}">
                                     @csrf
-                                    {{ method_field('delete') }}
+                                    @method('delete')
                                     <button type="submit" class="delete-button">
                                         <a class="text-muted">
                                             <i class="fas fa-trash-alt"></i>

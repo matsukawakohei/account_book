@@ -17,29 +17,38 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('account.index');
 });
 
-Route::get('/home', [AccountController::class, 'index'])
-    ->middleware(['auth', 'verified'])->name('home');
-
-Route::prefix('manual-account')->name('account.')->middleware(['auth', 'verified'])->group(function() {
-    Route::get('/register', [ManualAccountController::class, 'create']);
-    Route::post('/register', [ManualAccountController::class, 'store']);
-    Route::get('/register/{id}', [ManualAccountController::class, 'edit'])->name('edit');
-    Route::put('/register/{id}', [ManualAccountController::class, 'update'])->name('update');
-    Route::delete('/register/{id}', [ManualAccountController::class, 'destory'])->name('delete');
+Route::prefix('account')
+    ->middleware('auth')
+    ->controller(AccountController::class)
+    ->name('account.')
+    ->group(function() {
+        Route::get('', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('', 'store')->name('store');
+        Route::get('{account}', 'edit')->name('edit')
+            ->whereNumber('account');
+        Route::put('{account}', 'update')->name('update')
+            ->whereNumber('account');
+        Route::delete('{account}', 'destory')->name('delete')
+            ->whereNumber('account');
 });
 
-Route::prefix('mail-connection')->name('mail_connection.')->middleware(['auth', 'verified'])->group(function() {
-    Route::get('', [MailConnectionController::class, 'index'])->name('index');
-    Route::get('/register', [MailConnectionController::class, 'create'])->name('create');
-    Route::post('/register', [MailConnectionController::class, 'store']);
-    Route::get('/register/{mail_connection}', [MailConnectionController::class, 'edit'])->name('edit')
+Route::prefix('mail-connection')
+    ->middleware('auth')
+    ->controller(MailConnectionController::class)
+    ->name('mail_connection.')
+    ->group(function() {
+    Route::get('', 'index')->name('index');
+    Route::get('/register', 'create')->name('create');
+    Route::post('/register', 'store');
+    Route::get('{mail_connection}', 'edit')->name('edit')
         ->whereNumber('mail_connection');
-    Route::put('/register/{mail_connection}', [MailConnectionController::class, 'update'])->name('update')
+    Route::put('{mail_connection}', 'update')->name('update')
         ->whereNumber('mail_connection');
-    Route::delete('/register/{mail_connection}', [MailConnectionController::class, 'destroy'])->name('delete')
+    Route::delete('{mail_connection}', 'destroy')->name('delete')
         ->whereNumber('mail_connection');
 });
 

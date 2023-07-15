@@ -32,13 +32,13 @@
 
 @section('content_header')
     <div class="row d-flex align-items-center justify-content-center">
-        <a href="{{ route('home', ['date' => $aroundDate['before']->toDateString()]) }}" class="col-sm-1 text-right d-flex align-items-center justify-content-end text-dark month-link">
+        <a href="{{ route('account.index', ['date' => $aroundDate['before']->toDateString()]) }}" class="col-sm-1 text-right d-flex align-items-center justify-content-end text-dark month-link">
             <h1 class="fas fa-angle-left"></h1>
         </a>
         <div class="m-0 pb-1 text-dark col-sm-2 text-center">
             <h1>{{ $date->format('Y/m') }}</h1>
         </div>
-        <a href="{{ route('home', ['date' => $aroundDate['after']->toDateString()]) }}" class="col-sm-1 d-flex align-items-center text-dark month-link">
+        <a href="{{ route('account.index', ['date' => $aroundDate['after']->toDateString()]) }}" class="col-sm-1 d-flex align-items-center text-dark month-link">
             <h1 class="fas fa-angle-right"></h1>
         </a>
     </div>
@@ -121,16 +121,16 @@
                         </td>
                         <td>
                             <div class="d-flex align-items-center justify-content-center">
-                                <a href="{{ route('account.edit', ['id' => $account->id]) }}" class="text-muted">
+                                <a href="{{ route('account.edit', $account) }}" class="text-muted">
                                     <i class="fas fa-pen"></i>
                                 </a>
                             </div>
                         </td>
                         <td>
                             <div class="d-flex align-items-center justify-content-center">
-                                <form method="post" action="{{ route('account.delete', ['id' => $account->id]) }}">
+                                <form method="post" action="{{ route('account.delete', $account) }}">
                                     @csrf
-                                    {{ method_field('delete') }}
+                                    @method('delete')
                                     <button type="submit" class="delete-button">
                                         <a class="text-muted">
                                             <i class="fas fa-trash-alt"></i>
