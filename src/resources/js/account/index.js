@@ -14,3 +14,13 @@ let table = new DataTable('#account-table', {
         { "orderable": false },
     ]
 });
+
+$('.delete-button').click(function(e) {
+    e.preventDefault();
+    const accountName = $(this).closest('tr').find('.account-name').text().trim();
+    const next = confirm(`${accountName}を削除してよろしいですか？`);
+
+    if (next) {
+        $(this).closest('tr').find('.delete-form').submit();
+    }
+})
