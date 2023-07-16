@@ -22,24 +22,21 @@ class MailConnectionUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email'    => ['required', 'string', 'email'],
+            'email'    => ['email'],
             'password' => ['nullable', 'string'],
             'mail_box' => ['string', 'regex:/^[a-zA-Z]+$/', 'nullable'],
-            'subject'  => ['required', 'string']
+            'subject'  => ['string']
         ];
     }
 
     public function messages(): array
     {
         return [
-            'email.required'    => trans('mail_connection.errors.email.required'),
-            'email.string'      => trans('mail_connection.errors.email.string'),
             'email.email'       => trans('mail_connection.errors.email.email'),
             'password.string'   => trans('mail_connection.errors.password.string'),
             'mail_box.string'   => trans('mail_connection.errors.mail_box.string'),
             'mail_box.regex'    => trans('mail_connection.errors.mail_box.regex'),
-            'subject.required'  => trans('mail_connection.errors.subject.required'),
-            'subject.string'    => trans('mail_connection.errors.subject.string')
+            'subject.string'    => trans('mail_connection.errors.subject.string'),
         ];
     }
 }

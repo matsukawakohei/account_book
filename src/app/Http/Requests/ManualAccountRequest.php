@@ -22,23 +22,20 @@ class ManualAccountRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'           => 'required|string|max:50',
-            'amount'         => 'required|integer|min:1',
-            'account_date'   => 'required|date'
+            'name'           => 'string|max:50',
+            'amount'         => 'integer|min:1',
+            'account_date'   => 'date'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required'            => trans('account.errors.name.required'),
             'name.string'              => trans('account.errors.name.string'),
             'name.max'                 => trans('account.errors.name.max'),
-            'amount.required'          => trans('account.errors.amount.required'),
             'amount.integer'           => trans('account.errors.amount.integer'),
             'amount.min'               => trans('account.errors.amount.min'),
-            'account_date.required'    => trans('account.errors.date.required'),
-            'account_date.min'         => trans('account.errors.date.date')
+            'account_date.date'        => trans('account.errors.date.date'),
         ];
     }
 }
