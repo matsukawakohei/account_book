@@ -46,6 +46,7 @@
 
 @section('content')
     <x-alert />
+    <x-loading-view />
     <div class="row">
         <div class="col-sm-3">
             <div class="info-box">
