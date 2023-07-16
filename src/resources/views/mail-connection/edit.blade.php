@@ -11,6 +11,7 @@
 @stop
 
 @section('content_header')
+    <x-loading-view />
     <div class="card card-outline card-primary mx-auto" style="width: 40rem;">
         <div class="card-header">
             <h2 class="card-title float-none text-center">

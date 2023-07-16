@@ -21,7 +21,7 @@ class MailConnectionController extends Controller
 
     public function create(): View
     {
-        return view('mail-connection.register');
+        return view('mail-connection.create');
     }
 
     public function store(MailConnectionRequest $request): RedirectResponse

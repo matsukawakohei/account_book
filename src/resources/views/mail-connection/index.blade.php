@@ -35,6 +35,7 @@
 
 @section('content')
     <x-alert />
+    <x-loading-view />
     <div class="create-button mb-3">
         <a href="{{ route('mail_connection.create') }}" class="btn btn-info">新規登録</a>
     </div>
