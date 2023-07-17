@@ -43,7 +43,7 @@ Route::prefix('mail-connection')
     ->group(function() {
     Route::get('', 'index')->name('index');
     Route::get('/register', 'create')->name('create');
-    Route::post('/register', 'store');
+    Route::post('/register', 'store')->name('store');
     Route::get('{mail_connection}', 'edit')->name('edit')
         ->whereNumber('mail_connection');
     Route::put('{mail_connection}', 'update')->name('update')
