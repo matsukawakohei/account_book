@@ -64,7 +64,7 @@ class AccountController extends Controller
 
     public function edit(Account $account)
     {
-        if (is_null($account) || auth()->id() != $account->user_id) {
+        if (Auth::user()->cannot('update', $account)) {
             return redirect()->route('account.index')->with('warning_message', trans('account.invalid_account'));
         }
 
@@ -73,7 +73,7 @@ class AccountController extends Controller
 
     public function update(ManualAccountRequest $request, Account $account)
     {
-        if (is_null($account) || auth()->id() != $account->user_id) {
+        if (Auth::user()->cannot('update', $account)) {
             return redirect()->route('account.index')->with('warning_message', trans('account.invalid_account'));
         }
 
@@ -87,7 +87,7 @@ class AccountController extends Controller
 
     public function destory(Account $account)
     {
-        if (is_null($account) || auth()->id() != $account->user_id) {
+        if (Auth::user()->cannot('delete', $account)) {
             return redirect()->route('account.index')->with('warning_message', trans('account.invalid_account'));
         }
 
