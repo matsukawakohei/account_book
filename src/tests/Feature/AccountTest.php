@@ -145,6 +145,24 @@ class AccountTest extends TestCase
     }
 
     /** @test */
+    public function 更新画面のテスト_更新対象が存在しない場合(): void
+    {
+        $user    = User::factory()->create();
+        $account = Account::create([
+            'user_id'    => $user->id,
+            'name'       => '明細5',
+            'amount'     => 5000,
+            'date'       => Carbon::now()->toDateString(),
+            'store_type' => StoreType::Manual,
+        ]);
+
+        $this->actingAs($user);
+        $url = route('account.edit', ['account' => 100]);
+        $this->get($url)
+            ->assertNotFound();
+    }
+
+    /** @test */
     public function 更新画面のテスト_明細のユーザーとログインユーザーが別の場合(): void
     {
         $user    = User::factory()->create();
@@ -219,6 +237,29 @@ class AccountTest extends TestCase
     }
 
     /** @test */
+    public function 更新のテスト_更新対象が存在しない場合(): void
+    {
+        $user    = User::factory()->create();
+        $account = Account::create([
+            'user_id'    => $user->id,
+            'name'       => '明細6',
+            'amount'     => 6000,
+            'date'       => Carbon::now()->toDateString(),
+            'store_type' => StoreType::Manual,
+        ]);
+        $param  = [
+            'name'         => '明細6_変更',
+            'amount'       => 6500,
+            'account_date' => Carbon::now()->toDateString(),
+        ];
+
+        $this->actingAs($user);
+        $url = route('account.update', ['account' => 101]);
+        $this->put($url, $param)
+            ->assertNotFound();
+    }
+
+    /** @test */
     public function 更新のテスト_明細のユーザーとログインユーザーが別の場合(): void
     {
         $user    = User::factory()->create();
@@ -283,6 +324,24 @@ class AccountTest extends TestCase
 
         $this->get(route('account.index'))
             ->assertSee('支出の削除が完了しました。');
+    }
+
+    /** @test */
+    public function 削除のテスト_削除対象が存在しない場合(): void
+    {
+        $user    = User::factory()->create();
+        $account = Account::create([
+            'user_id'    => $user->id,
+            'name'       => '明細7',
+            'amount'     => 7000,
+            'date'       => Carbon::now()->toDateString(),
+            'store_type' => StoreType::Manual,
+        ]);
+
+        $this->actingAs($user);
+        $url = route('account.delete', ['account' => 102]);
+        $this->delete($url)
+            ->assertNotFound();
     }
 
     /** @test */
